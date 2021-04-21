@@ -5,15 +5,13 @@ defmodule Identicon do
     |> pic_color
   end
 
-  def pic_color(image) do
-    %Identicon.Image{hex: [r, g, b | _tail]} = image
-    [r, g, b]
+  def pic_color(%Identicon.Image{hex: [r, g, b | _tail]} = image) do
+    %Identicon.Image{image | color: {r,g, b}}
   end
   
   def hash_input(input)do
     hex = :crypto.hash(:md5, input)
     |> :binary.bin_to_list
-
     %Identicon.Image{hex: hex}
   end
 end
